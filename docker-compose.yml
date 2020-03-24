@@ -35,8 +35,6 @@ services:
       io.balena.features.balena-socket: '1'
       io.resin.features.kernel-modules: '1'
       io.resin.features.firmware: '1'
-    volumes:
-      - nginx-data:/website
     environment:
       - DOCKER_USR=root
       - VIRTUALIZATION=${VIRTUALIZATION}
