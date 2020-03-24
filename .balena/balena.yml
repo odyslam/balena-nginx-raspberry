@@ -1,0 +1,16 @@
+build-secrets:
+  services:
+    nginx:
+      - source: dhparam.pem
+        dest: dhparam.pem
+    ddclient:
+      - source: ddclient.conf
+        dest: ddclient.conf
+build-variables:
+  services:
+    nginx:
+      - REPO_ZIP_URL=https://github.com/OdysLam/odyslam.github.io/archive/master.zip
+      - REPO_NAME=odyslam.github.io
+      - CERTBOT_MAIL=hi@odyslam.me
+      - CERTBOT_DOMAIN_1=www.odyslam.me
+      - CERTBOT_DOMAIN_2=odyslam.me      
