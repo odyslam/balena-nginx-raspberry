@@ -3,11 +3,11 @@
 This project was created in order to use a Raspberry pi 4 as a production server for a low-traffic personal website and blog. 
 
 # Components:
-    - Nginx webserver: Dockerfile based on [rpi-nginx](https://github.com/Tob1asDocker/rpi-nginx) repository
-    - Certbot: Letsencrypt client used to generate SSL certificates. [Certbot](https://certbot.eff.org/)
-    - Netdata monitoring: Dockerfile + Docker-compose, based on [Netdata](https://github.com/netdata/netdata)
-    - ddclient Dynamic DNS set: Dockerfile based on [ddclient](https://github.com/ddclient/ddclient)
-    - balena for code deployment on Raspberry pi: [Balena.io](https://balena.io)
+- Nginx webserver: Dockerfile based on [rpi-nginx](https://github.com/Tob1asDocker/rpi-nginx) repository
+- Certbot: Letsencrypt client used to generate SSL certificates. [Certbot](https://certbot.eff.org/)
+- Netdata monitoring: Dockerfile + Docker-compose, based on [Netdata](https://github.com/netdata/netdata)
+- ddclient Dynamic DNS set: Dockerfile based on [ddclient](https://github.com/ddclient/ddclient)
+- balena for code deployment on Raspberry pi: [Balena.io](https://balena.io)
 
 # Usage:
 
@@ -25,15 +25,15 @@ Reference:
  - balena.io named volumes: [Docks](https://www.balena.io/docs/learn/develop/multicontainer/#named-volumes)
 
 ## Build Variables
-  - REPO_ZIP_URL, link to the zip archive of the website's repository (e.g  https://github.com/OdysLam/odyslam.github.io/)
-  - REPO_NAME, name of the website's repository (e.g odyslam.github.io)
-  - CERTBOT_MAIL, mail for ssl certificate
-  - CERTBOT_DOMAIN_1, website domain (e.g www.odyslam.me)
-  - CERTBOT_DOMAIN_2, website domain (e.g odyslam.me)
+  - `REPO_ZIP_URL`, link to the zip archive of the website's repository (e.g  https://github.com/OdysLam/odyslam.github.io/)
+  - `REPO_NAME`, name of the website's repository (e.g odyslam.github.io)
+  - `CERTBOT_MAIL`, mail for ssl certificate
+  - `CERTBOT_DOMAIN_1`, website domain (e.g www.odyslam.me)
+  - `CERTBOT_DOMAIN_2`, website domain (e.g odyslam.me)
 
 ## Environment Variables
 
-- CERTBOT = [1 OR 0], it signals to the service wether to commence the certbot ssl certification functionality
+- `CERTBOT = [1 OR 0]`, it signals to the service wether to commence the certbot ssl certification functionality
 
 ## Balena
 
@@ -66,8 +66,8 @@ ddclient is a small `perl` program that has pre-configured functionality for kno
 
 In our use-case, the domain provider is Namecheap, thus:
 
-Namecheap dynamic DNS: [Namecheap Docs](https://www.namecheap.com/support/knowledgebase/subcategory/11/dynamic-dns/)
-ddclient configuration: [Namecheap Docs](https://www.namecheap.com/support/knowledgebase/article.aspx/583/11/how-do-i-configure-ddclient)
+- Namecheap dynamic DNS: [Namecheap Docs](https://www.namecheap.com/support/knowledgebase/subcategory/11/dynamic-dns/)
+- ddclient configuration: [Namecheap Docs](https://www.namecheap.com/support/knowledgebase/article.aspx/583/11/how-do-i-configure-ddclient)
 
 ## TODO
 
