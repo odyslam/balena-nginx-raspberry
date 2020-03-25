@@ -24,12 +24,14 @@ Reference:
  - balena.io environment variables: [Docks](https://www.balena.io/docs/learn/manage/serv-vars/)
  - balena.io named volumes: [Docks](https://www.balena.io/docs/learn/develop/multicontainer/#named-volumes)
 
-## Build Variables
+## Build Variables/Secrets
   - `REPO_ZIP_URL`, link to the zip archive of the website's repository (e.g  https://github.com/OdysLam/odyslam.github.io/)
   - `REPO_NAME`, name of the website's repository (e.g odyslam.github.io)
   - `CERTBOT_MAIL`, mail for ssl certificate
   - `CERTBOT_DOMAIN_1`, website domain (e.g www.odyslam.me)
   - `CERTBOT_DOMAIN_2`, website domain (e.g odyslam.me)
+  - `ddclient.conf`, configuration for ddclient
+  - `dhparam.pem`, DH parameters generated with OpenSSL for SSL. [Example](https://scaron.info/blog/improve-your-nginx-ssl-configuration.html)
 
 ## Environment Variables
 
@@ -47,11 +49,13 @@ The project assumes that the website source files (html, js, css, assets) are ho
 
 **NginX** is used as the webserver of choice because it is highly performant, something essential for the size-factor of a small computer, such as the [Raspberry Pi 4](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/specifications/).
 
+Note that in order for nginx to function properly, it needs the certificates/private keys that are generated with `certbot` and a `dhparam.pem` that can be generated on the developer's machine. Thus, if running the webserver for the first time, enable the appropriate environment variable so that  `certbot` can generated the required keys.
+
 ## Certbot
 
-The certbot functionality is housed in the same container as the webserver becuse it needs access to the nginx directory. If we set the enviroment variable `CERTBOT=1`, the service will be restarted and it will start the SSL certificate functionality. After success, it will save the credentials into a named volume and will start the server as usual. 
+The certbot functionality is housed in the same container as the webserver becuse it needs access to the nginx directory. If we set the environment variable `CERTBOT=1`, the service will be restarted and it will start the SSL certificate functionality. After success, it will save the credentials into a named volume and will start the server as usual. 
 
-If we want, we can either leave the enviroment variable as-is, but in case of container restart, the functionality will run again (only to notify us that the certificates are up-to date and no further action is required) or we can set `CERTBOT=0` and restart the container with that functionality disabled.
+If we want, we can either leave the environment variable as-is, but in case of container restart, the functionality will run again (only to notify us that the certificates are up-to date and no further action is required) or we can set `CERTBOT=0` and restart the container with that functionality disabled.
 
 ## Netdata
 
