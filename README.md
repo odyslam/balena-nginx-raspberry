@@ -3,11 +3,11 @@
 This project was created in order to use a Raspberry pi 4 as a production server for a low-traffic personal website and blog. 
 
 # Components:
-- Nginx webserver: Dockerfile based on [rpi-nginx](https://github.com/Tob1asDocker/rpi-nginx) repository
-- Certbot: Letsencrypt client used to generate SSL certificates. [Certbot](https://certbot.eff.org/)
-- Netdata monitoring: Dockerfile + Docker-compose, based on [Netdata](https://github.com/netdata/netdata)
-- ddclient Dynamic DNS set: Dockerfile based on [ddclient](https://github.com/ddclient/ddclient)
-- balena for code deployment on Raspberry pi: [Balena.io](https://balena.io)
+- **Nginx webserver:** Dockerfile based on [rpi-nginx](https://github.com/Tob1asDocker/rpi-nginx) repository
+- **Certbot:** Letsencrypt client used to generate SSL certificates. [Certbot](https://certbot.eff.org/)
+- **Netdata monitoring:** Dockerfile + Docker-compose, based on [Netdata](https://github.com/netdata/netdata)
+- **ddclient** Dynamic DNS set: Dockerfile based on [ddclient](https://github.com/ddclient/ddclient)
+- **balena** for code deployment on Raspberry pi: [Balena.io](https://balena.io)
 
 # Usage:
 
