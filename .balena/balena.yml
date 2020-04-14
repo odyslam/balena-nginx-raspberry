@@ -13,4 +13,5 @@ build-variables:
       - REPO_NAME=odyslam.github.io
       - CERTBOT_MAIL=hi@odyslam.me
       - CERTBOT_DOMAIN_1=www.odyslam.me
-      - CERTBOT_DOMAIN_2=odyslam.me      
+      - CERTBOT_DOMAIN_2=odyslam.me
+      - CERTBOT_CERT_NAME=odyslam.me

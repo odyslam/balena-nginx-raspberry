@@ -9,15 +9,19 @@ LABEL org.opencontainers.image.authors="Tobias Hargesheimer <docker@ison.ws>" \
 
 ARG CROSS_BUILD_START=":"
 ARG CROSS_BUILD_END=":"
+
 ARG REPO_ZIP_URL
 ARG REPO_NAME
+
 ARG CERTBOT_MAIL
 ARG CERTBOT_DOMAIN_1
 ARG CERTBOT_DOMAIN_2
+ARG CERTBOT_CERT_NAME   
 
 ENV CERTBOT_MAIL=${CERTBOT_MAIL}
 ENV CERTBOT_DOMAIN_1=${CERTBOT_DOMAIN_1}
 ENV CERTBOT_DOMAIN_2=${CERTBOT_DOMAIN_2}
+ENV CERTBOT_CERT_NAME=${CERTBOT_CERT_NAME}
 
 RUN install_packages certbot 
 
@@ -38,24 +42,28 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
         
 # EXPOSE 80 443
 
-#delete default nginx.conf and replace with out own
-RUN rm /etc/nginx/nginx.conf 
-COPY nginx.conf /etc/nginx/nginx.conf
+#delete default nginx.conf and replace with our own
 
 COPY nginx-certbot.conf /tmp/nginx-certbot.conf
 RUN mkdir /var/www/certbot
 RUN mkdir /logs
-COPY start.sh /
-RUN chmod +x /start.sh
 
 RUN cp /run/secrets/dhparam.pem /tmp/dhparam.pem
 
-WORKDIR /tmp/ 
+WORKDIR /tmp/
+
+RUN rm /etc/nginx/nginx.conf 
+COPY nginx.conf /etc/nginx/nginx.conf
 
 RUN wget ${REPO_ZIP_URL}
 RUN unzip -q master.zip && rm master.zip
 RUN mkdir /usr/share/nginx && mkdir /usr/share/nginx/html
 RUN mv /tmp/${REPO_NAME}-master/* /usr/share/nginx/html/
+
+COPY start.sh /
+COPY update-blog.sh /
+RUN chmod +x /start.sh
+RUN chmod +x /update-blog.sh
 
 # ENV CERTBOT 1
 

@@ -21,6 +21,7 @@ services:
     restart: 'always'
   netdata:
     build: ./netdata
+    pid: "host"
     ports:
       - 19999:19999
     network_mode: host
