@@ -1,1 +1,2 @@
-.balena/
+ddhclient.conf
+dhparam.pem
