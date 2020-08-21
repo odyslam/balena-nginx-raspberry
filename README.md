@@ -51,12 +51,6 @@ The project assumes that the website source files (html, js, css, assets) are ho
 
 Note that in order for nginx to function properly, it needs the certificates/private keys that are generated with `certbot` and a `dhparam.pem` that can be generated on the developer's machine. Thus, if running the webserver for the first time, enable the appropriate environment variable so that  `certbot` can generated the required keys.
 
-## Certbot
-
-The certbot functionality is housed in the same container as the webserver becuse it needs access to the nginx directory. If we set the environment variable `CERTBOT=1`, the service will be restarted and it will start the SSL certificate functionality. After success, it will save the credentials into a named volume and will start the server as usual. 
-
-If we want, we can either leave the environment variable as-is, but in case of container restart, the functionality will run again (only to notify us that the certificates are up-to date and no further action is required) or we can set `CERTBOT=0` and restart the container with that functionality disabled.
-
 ## Netdata
 
 Netdata is used to monitor the device's resources and the connection status of Nginx. It used the `/stub_status` page of nginx in order to aggregate information and present it in the dashboard.
@@ -72,10 +66,6 @@ In our use-case, the domain provider is Namecheap, thus:
 
 - Namecheap dynamic DNS: [Namecheap Docs](https://www.namecheap.com/support/knowledgebase/subcategory/11/dynamic-dns/)
 - ddclient configuration: [Namecheap Docs](https://www.namecheap.com/support/knowledgebase/article.aspx/583/11/how-do-i-configure-ddclient)
-
-## TODO
-
-- Test dynamic update of website assets via environment variable
 
 
 

@@ -3,6 +3,8 @@ version: '2.1'
 volumes:
   nginx-data:
   nginx-logs:
+  netdatacache:
+  netdatalib:
 
 services:
   nginx:
@@ -16,29 +18,31 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    environment:
+      - ENVIRONMENT=PRODUCTION
   ddclient:
     build: ./ddclient
     restart: 'always'
   netdata:
-    build: ./netdata
-    pid: "host"
+    build: netdata
+    # this could be removed if we could simply use env vars in our configuration (only to pass in supervisor API URL)
+    network_mode: 'host'
     ports:
-      - 19999:19999
-    network_mode: host
+      - '19999:19999'
+    environment:
+      - PGID=988
+        # we get this injected as unix:///...sock, but netdata doesn't like that
+      - DOCKER_HOST=/var/run/balena-engine.sock
     cap_add:
       - SYS_PTRACE
     security_opt:
       - apparmor:unconfined
-    privileged: true
     labels:
-      io.balena.features.sysfs: '1'
-      io.balena.features.procfs	: '1'
-      io.balena.features.balena-socket: '1'
-      io.resin.features.kernel-modules: '1'
-      io.resin.features.firmware: '1'
-    environment:
-      - DOCKER_USR=root
-      - VIRTUALIZATION=${VIRTUALIZATION}
-    depends_on: 
-      - nginx
+      io.balena.features.balena-socket: 1
+      io.balena.features.procfs: 1
+      io.balena.features.supervisor-api: 1
+      io.balena.features.sysfs: 1
+    volumes:
+      - netdatalib:/var/lib/netdata
+      - netdatacache:/var/cache/netdata
   
