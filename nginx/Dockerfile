@@ -30,8 +30,8 @@ RUN install_packages certbot
 RUN [ ${CROSS_BUILD_START} ]
 
 ENV NGINX_VERSION 1.16
-
-RUN apk --no-cache add nginx>${NGINX_VERSION} \
+# >${NGINX_VERSION}
+RUN apk update && apk --no-cache add nginx \
         && mkdir -p /run/nginx \
         && sed -i "s/ssl_session_cache shared:SSL:2m;/#ssl_session_cache shared:SSL:2m;/g" /etc/nginx/nginx.conf
 
@@ -67,7 +67,7 @@ COPY update-blog.sh /
 RUN chmod +x /start.sh
 RUN chmod +x /update-blog.sh
 
-# ENV CERTBOT 1
+# ENV CERTBOT_FORCED 1
 
 CMD ["/start.sh"]
 
