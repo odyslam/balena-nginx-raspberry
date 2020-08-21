@@ -1,11 +1,12 @@
-if [[ ! -d "/etc/letsencrypt/live/$CERTBOT_CERT_NAME" || "$CERTBOT_FORCED" = "1" ]]; then
-    echo "Generating TLS certificate.."
-    nginx -c /tmp/nginx-certbot.conf
-    certbot certonly --non-interactive --agree-tos --cert-name $CERTBOT_CERT_NAME -m $CERTBOT_MAIL -d $CERTBOT_DOMAIN_1 -d $CERTBOT_DOMAIN_2 --webroot -w /var/www/certbot
-    nginx -s stop
-    sleep 5s
-else 
-  echo "TLS certificates were found"
+if [[ "$ENVIRONMENT" = "PRODUCTION" ]]; then
+  if [[ ! -d "/etc/letsencrypt/live/$CERTBOT_CERT_NAME" || "$CERTBOT_FORCED" = "1" ]]; then
+      echo "Generating TLS certificate.."
+      nginx -c /tmp/nginx-certbot.conf
+      certbot certonly --non-interactive --agree-tos --cert-name $CERTBOT_CERT_NAME -m $CERTBOT_MAIL -d $CERTBOT_DOMAIN_1 -d $CERTBOT_DOMAIN_2 --webroot -w /var/www/certbot
+      exit
+  else 
+    echo "TLS certificates were found"
+  fi
 fi
 if [ ! -f /etc/letsencrypt/dhparam.pem ]; then
   mv /tmp/dhparam.pem /etc/letsencrypt/dhparam.pem
